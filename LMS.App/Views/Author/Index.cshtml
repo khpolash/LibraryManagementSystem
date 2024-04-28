@@ -1,0 +1,74 @@
+﻿@model IEnumerable<LMS.Application.ViewModels.VmEntities.VmAuthor>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+    int counter = 1;
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Author</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Author</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Author List</h3>
+            <div class="card-tools">
+                <a asp-action="AddEdit" asp-controller="Author" class="btn btn-info btn-sm">
+                <i class="fa-regular fa-square-plus"></i> Add Author</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table nowrap" id="dataTable">
+                <thead class="nowrap">
+                    <tr>
+                        <th>#</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AuthorName)
+                        </th>                        
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@counter</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AuthorName)
+                            </td>
+                            <td style="vertical-align: middle; width:140px;">
+                                <a href="@Url.Action("AddEdit", new { id = item.Id })" class="btn btn-link btn-sm text-success" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                |
+                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-link btn-sm text-primary" title="Details">
+                                    <i class="far fa-eye"></i>
+                                </a>
+                                |
+                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-link btn-sm text-danger" title="Delete" onclick="return confirmAndDelete(this);">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        counter++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>

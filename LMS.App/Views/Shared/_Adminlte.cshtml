@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Identity;
+@using static LMS.SharedKernel.Entities.Identities.IdentityModel;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    var appUser = await UserManager.GetUserAsync(User);
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>@ViewData["Title"]-Renaissance Holidays</title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/images/favicon_io/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="~/images/favicon_io/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/images/favicon_io/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/images/favicon_io/favicon-32x32.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
+    @await Html.PartialAsync("Backend/_AdminlteStyles")
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
+    <div class="wrapper" style="font-size:14px;">
+        <partial name="Backend/_AdminlteMainHeader" model="appUser" />
+        <partial name="Backend/_AdminlteMainSidebar" />
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <partial name="Backend/_AdminlteFooter" />
+    </div>
+
+    @await Html.PartialAsync("Backend/_AdminlteScripts")
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿@model LMS.Application.ViewModels.VmEntities.VmAuthor
+@{
+    ViewData["Title"] = "AddEdit";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Author </h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Add Author</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content ">
+    <div class="card w-4 ">
+        <div class="card-header">
+            <h3 class="card-title">Add Author</h3>
+            <div class="card-body">
+                <form asp-action="AddEdit" asp-controller="Author" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="Id" type="hidden" />
+                    <div class="modal-body form-horizontal">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="AuthorName" class="col-form-label"></label>
+                                <input asp-for="AuthorName" class="form-control" />
+                                <span asp-validation-for="AuthorName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="AuthorBio" class=" col-form-label"></label>
+                                <textarea asp-for="AuthorBio" rows="4" type="date" class="form-control">
+                                </textarea>
+                                <span asp-validation-for="AuthorBio" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <button type="submit" class="btn btn-sm btn-info"><i class="bi bi-save"></i> Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+

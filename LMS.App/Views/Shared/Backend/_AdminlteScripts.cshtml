@@ -1,0 +1,108 @@
+﻿
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+<script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/overlayscrollbars/js/OverlayScrollbars.min.js"></script>
+<script src="~/lib/admin-lte/js/adminlte.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/select2/js/select2.min.js"></script>
+<script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="~/lib/font-awesome/js/all.min.js"></script>
+<script src="~/lib/datatables.net/dataTables.min.js"></script>
+<script src="~/lib/datatables.net-bs5/dataTables.bootstrap5.min.js"></script>
+<script src="~/lib/datatables-responsive/dataTables.responsive.min.js"></script>
+<script src="~/lib/datatables.net-responsive-bs5/responsive.bootstrap5.min.js"></script>
+
+<script>
+    $('#dataTable').DataTable({
+        pageLength: 5,
+        lengthMenu: [[5, 10, 20, 50, 100], [5, 10, 20, 50, 100]],
+        responsive: true,
+        select: {
+            selector: 'td:not(:first-child)',
+            style: 'os'
+        }
+    });
+
+</script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+    $(function () {
+        var currentRoute = window.location.href;
+        var currentRouteSplit = currentRoute.split("/");
+        //console.log(currentRouteSplit)
+
+        // for single sidebar menu
+        $('ul.nav-sidebar a').filter(function () {
+            var allRoute = this.href;
+            var allRouteSplit = this.href.split('/')
+            if (currentRouteSplit.length > 3) {
+                return currentRouteSplit[3] == allRouteSplit[3]
+            }
+            return currentRoute == allRoute;
+        }).addClass('active');
+
+        // for sidebar menu and treeview
+        $('ul.nav-treeview a').filter(function () {
+            var allRoute = this.href;
+            var allRouteSplit = this.href.split('/')
+            if (currentRouteSplit.length > 3) {
+                return currentRouteSplit[3] == allRouteSplit[3]
+            }
+        }).parentsUntil(".nav-sidebar > .nav-treeview")
+            .css({ 'display': 'block' })
+            .addClass('menu-open').prev('a')
+            .addClass('active');
+    });
+</script>
+<script>
+    function confirmAndDelete(element) {
+        var itemId = element.getAttribute("asp-route-id");
+        var confirmationMessage = 'Are you sure you want to delete item ?';
+
+        Swal.fire({
+            title: 'Confirmation',
+            text: confirmationMessage,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteItem(element);
+            }
+        });
+
+        return false;
+    }
+    function deleteItem(element) {
+        var deleteUrl = element.getAttribute("href");
+        window.location.href = deleteUrl;
+    }
+</script>
+<script>
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: true,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        toastMixin.fire({
+            title: '@TempData["SuccessMessage"]'
+        });
+    </script>
+}
+<script src="~/js/site.js"></script>

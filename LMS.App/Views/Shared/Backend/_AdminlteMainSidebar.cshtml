@@ -1,0 +1,44 @@
+﻿<aside class="main-sidebar sidebar-light-info elevation-1">
+    <a asp-action="Index" asp-controller="Dashboard" class="brand-link">
+        <img src="~/images/lms.png" alt="LMS" width="30" height="30" class="img-circle elevation-0" style="opacity: .8">
+        <span class="brand-text font-weight-light">Library Management</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Dashboard" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Dashboard" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Author" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Author" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Author</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Book" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Book" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="nav-icon fa-solid fa-book"></i>
+                        <p>Book</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="Member" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Member" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Member</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="Index" asp-controller="BorrowdBook" class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "BorrowdBook" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <i class="nav-icon fa-solid fa-receipt"></i>
+                        <p>Borrowd Book</p>
+                    </a>
+                </li>                
+            </ul>
+        </nav>
+    </div>
+</aside>
+

@@ -1,0 +1,101 @@
+﻿@model IEnumerable<LMS.Application.ViewModels.VmEntities.VmBorrowdBook>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+    var counter = 1;
+    DateTime currentDate = DateTime.Now.Date;
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Borrowd Book</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Issue Book</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Borrowd Book List</h3>
+            <div class="card-tools">
+                <a asp-action="AddEdit" asp-controller="BorrowdBook" class="btn btn-info btn-sm">
+                    <i class="fa-regular fa-square-plus"></i> Issue Book
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table nowrap" id="dataTable">
+                <thead class="nowrap">
+                    <tr>
+                        <th>#</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MemberName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BookTitle)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BorrowDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ReturnDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="@(item.ReturnDate < currentDate ? "table-danger" : "")">
+                            <td>@counter</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MemberName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BookTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BorrowDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReturnDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td style="vertical-align: middle; width:140px;">
+                                <a href="@Url.Action("ReturnBook", new { id = item.Id })" class="btn btn-link btn-sm text-success @(item.Status==LMS.SharedKernel.Core.BookStatus.Returned ? "disabled" : "")" title="Return">
+                                    <i class="fa-solid fa-arrow-rotate-left"></i> Return
+                                </a>
+                                |
+                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-link btn-sm text-primary" title="Details">
+                                    <i class="far fa-eye"></i>
+                                </a>
+                                @*|
+                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-link btn-sm text-danger" title="Delete" onclick="return confirmAndDelete(this);">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>*@
+                            </td>
+                        </tr>
+                        counter++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>

@@ -1,0 +1,79 @@
+﻿@model LMS.Application.ViewModels.VmEntities.VmBorrowdBook
+@{
+    ViewData["Title"] = "AddEdit";
+    Layout = "~/Views/Shared/_Adminlte.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Issue Book </h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Issue Book</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content ">
+    <div class="card w-4 ">
+        <div class="card-header">
+            <h3 class="card-title">Issue Book</h3>
+            <div class="card-body">
+                <form asp-action="AddEdit" asp-controller="BorrowdBook" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="Id" type="hidden" />
+                    <div class="modal-body form-horizontal">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label asp-for="BookId" class="col-form-label"></label>
+                                <select asp-for="BookId" asp-items="@(ViewBag.BookId)" class="form-control select2">
+                                    <option value="">--Select Book--</option>
+                                </select>
+                                <span asp-validation-for="MemberId" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="MemberId" class="col-form-label"></label>
+                                <select asp-for="MemberId" asp-items="@(ViewBag.MemberId)" class="form-control select2">
+                                    <option value="">--Select Member--</option>
+                                </select>
+                                <span asp-validation-for="MemberId" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="BorrowDate" class=" col-form-label"></label>
+                                <input asp-for="BorrowDate" class="form-control" value="@DateTimeOffset.UtcNow.ToString("yyyy-MM-dd")" />
+                                <span asp-validation-for="BorrowDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="ReturnDate" class=" col-form-label"></label>
+                                <input asp-for="ReturnDate" class="form-control" value="@DateTimeOffset.UtcNow.AddDays(7).ToString("yyyy-MM-dd")"/>
+                                <span asp-validation-for="ReturnDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Status" class=" col-form-label"></label>
+                                <select asp-for="Status" class="form-control" asp-items="@Html.GetEnumSelectList<LMS.SharedKernel.Core.BookStatus>()">
+                                    <option>Status</option>
+                                </select>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group mt-2">
+                            <button type="submit" class="btn btn-sm btn-info"><i class="bi bi-save"></i> Issue Book</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+

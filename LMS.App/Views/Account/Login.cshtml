@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using static LMS.SharedKernel.Entities.Identities.IdentityModel;
+@using LMS.Application.ViewModels.Account;
+@model VmLogin
+@inject SignInManager<User> signInManager;
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="login-box">
+
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <div class="input-group">
+                        <input asp-for="Email" type="email" class="form-control" value="admin@localhost.com" placeholder="Email" />
+                        <span class="input-group-text bi bi-envelope"></span>
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <div class="input-group">
+                        <input asp-for="Password" type="password" class="form-control" value="P@ssword1" placeholder="Password" />
+                        <span class="input-group-text bi bi-key"></span>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                <input type="checkbox" asp-for="RememberMe">  @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" id="btnUserLogin">Sign In</button>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-between mb-4 hide">
+                    <p class="text-center">- OR -</p>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-block btn-primary btn-flat">
+                            <i class="bi bi-facebook mr-2"></i> Sign in using Facebook
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-block btn-danger btn-flat">
+                            <i class="bi bi-google mr-2"></i> Sign in using Google
+                        </a>
+                    </div>
+                </div>
+
+                <!-- /.social-auth-links -->
+                <a asp-action="ForgotPassword" class="">I forgot my password</a><br>
+                <a asp-action="Register" asp-controller="Account" asp-route-returnurl="@ViewData["ReturnUrl"]" class="text-center">Register a new membership </a>
+                <span class="text-danger">@Html.ValidationSummary(false)</span>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        //$("#btnUserLogin").trigger('click');
+        //$(function () {
+        //    $('input').iCheck({
+        //        checkboxClass: 'icheckbox_square-blue',
+        //        radioClass: 'iradio_square-blue',
+        //        increaseArea: '20%' /* optional */
+        //    });
+        //});
+        var result = "@ViewBag.IsLoginSucceeded";
+        if (result != '')
+            toastr.error("@ViewBag.IsLoginSucceeded");
+    </script>
+}
