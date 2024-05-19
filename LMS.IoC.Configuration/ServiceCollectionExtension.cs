@@ -1,5 +1,6 @@
 ﻿using LMS.Application;
 using LMS.Infrastructure;
+using LMS.Infrastructure.Seeder;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ public static class ServiceCollectionExtension
         services.AddRazorPages();
         services.InfrastructureServices(configuration);
         services.ApplicationServices(configuration);
+        services.AddTransient<ApplicationDbContextInitializer>();
         services.AddAuthorizationBuilder().AddPolicy("DebugPolicy", policy => policy.RequireAssertion(context => true));
 
 
