@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<LMS.Application.ViewModels.VmEntities.VmBorrowdBook>
-
+@using LMS.SharedKernel.Core
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Adminlte.cshtml";
@@ -60,7 +60,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr class="@(item.ReturnDate < currentDate ? "table-danger" : "")">
+                        <tr class="@(item.Status!= BookStatus.Returned && item.ReturnDate < currentDate ? "table-danger" : "")">
                             <td>@counter</td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.MemberName)
